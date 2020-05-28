@@ -2,14 +2,23 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ApiResource(normalizationContext={
+ *          "groups"={"user_read"}
+ *     })
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository", repositoryClass=UserRepository::class)
+ * @UniqueEntity("email", message="cet utilisateur ayant cette adresse email existe déja")
+ *
  */
 class User implements UserInterface
 {
@@ -17,42 +26,59 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"user_read", "annonce_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups({"user_read", "annonce_read"})
+     * @Assert\NotBlank(message="L'email doit etre renseigné")
+     * @Assert\Email(message="Le format de l'adresse email doit etre valide !")
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
+     * @Groups({"user_read", "annonce_read"})
      */
     private $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Groups({"user_read", "annonce_read"})
+     * @Assert\NotBlank(message="Le mot de passe est obligatoire")
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"user_read", "annonce_read"})
+     * @Assert\NotBlank(message="Le prénom est obligatoire")
+     * @Assert\Length(min="3", max="25", minMessage="Le prénom doit faire au moins 3 caractéres", maxMessage="Le prénom doit faire maximun 25 caractéres")
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"user_read", "annonce_read"})
+     * @Assert\NotBlank(message="Le nom est obligatoire")
+     * @Assert\Length(min="3", max="25", minMessage="Le nom doit faire au moins 3 caractéres", maxMessage="Le nom doit faire maximun 25 caractéres")
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"user_read", "annonce_read"})
+     * @Assert\NotBlank(message="Le numéro est obligatoire")
+     * @Assert\Type(type="numeric", message="Le numéro doit etre des chiffres !")
      */
     private $number;
 
     /**
      * @ORM\OneToMany(targetEntity=Annonce::class, mappedBy="user")
+     * @Groups({"user_read"})
      */
     private $annonces;
 
