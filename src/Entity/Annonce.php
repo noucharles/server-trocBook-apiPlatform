@@ -26,7 +26,7 @@ class Annonce
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"annonces_read", "user_read"})
+     * @Groups({"annonce_read", "user_read"})
      */
     private $id;
 
