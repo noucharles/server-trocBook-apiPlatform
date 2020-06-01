@@ -82,6 +82,14 @@ class User implements UserInterface
      */
     private $annonces;
 
+    /**
+     * @ORM\Column(type="text")
+     * @Groups({"user_read", "annonce_read"})
+     * @Assert\NotBlank(message="Les conditions pour le troc d'un ou plusieur livre(s) est obligatoire")
+     * @Assert\Length(min="15", minMessage="Les conditions pour le troc d'un ou plusieur livre(s) est obligatoire, elle doit faire au moins 3 caractéres")
+     */
+    private $exigences;
+
     public function __construct()
     {
         $this->annonces = new ArrayCollection();
@@ -228,6 +236,18 @@ class User implements UserInterface
                 $annonce->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getExigences(): ?string
+    {
+        return $this->exigences;
+    }
+
+    public function setExigences(string $exigences): self
+    {
+        $this->exigences = $exigences;
 
         return $this;
     }
