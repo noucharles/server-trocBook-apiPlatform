@@ -74,7 +74,7 @@ class Annonce
     /**
      * @ORM\Column(type="datetime")
      * @Groups({"annonce_read", "user_read"})
-     * @Assert\DateTime(message="La date doit etre au format YYYY-MM-DD")
+     * @Assert\Type("\DateTimeInterface")
      * @Assert\NotBlank(message="La date d'envoie doit etre renseigné")
      */
     private $created;
@@ -82,6 +82,7 @@ class Annonce
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="annonces")
      * @Groups({"annonce_read"})
+     * @Assert\NotBlank(message="L'utilisateur est obligatoire")
      */
     private $user;
 
