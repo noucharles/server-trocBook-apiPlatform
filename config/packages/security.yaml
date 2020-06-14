@@ -15,10 +15,15 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         registration:
+            pattern: ^/api/annonces
+            stateless: true
+            anonymous: true
+            methods: [GET]
+        registration2:
             pattern: ^/api/users
             stateless: true
             anonymous: true
-            methods: [POST]
+            methods: [GET]
         login:
             pattern:  ^/api/login
             stateless: true
@@ -47,7 +52,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
          - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-         - { path: ^/api/annonces, roles: IS_AUTHENTICATED_FULLY }
-         - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY, methods: [GET, PUT, DELETE] }
+         - { path: ^/api/annonces, roles: IS_AUTHENTICATED_FULLY, methods: [POST, PUT, DELETE] }
+         - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY, methods: [PUT, DELETE] }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
