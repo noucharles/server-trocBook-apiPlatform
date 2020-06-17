@@ -33,8 +33,8 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Groups({"user_read", "annonce_read"})
-     * @Assert\NotBlank(message="L'email doit etre renseigné")
      * @Assert\Email(message="Le format de l'adresse email doit etre valide !")
+     * @Assert\NotBlank(message="L'email doit etre renseigné")
      */
     private $email;
 
@@ -55,24 +55,24 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"user_read", "annonce_read"})
-     * @Assert\NotBlank(message="Le prénom est obligatoire")
      * @Assert\Length(min="3", max="25", minMessage="Le prénom doit faire au moins 3 caractéres", maxMessage="Le prénom doit faire maximun 25 caractéres")
+     * @Assert\NotBlank(message="Le prénom est obligatoire")
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"user_read", "annonce_read"})
-     * @Assert\NotBlank(message="Le nom est obligatoire")
      * @Assert\Length(min="3", max="25", minMessage="Le nom doit faire au moins 3 caractéres", maxMessage="Le nom doit faire maximun 25 caractéres")
+     * @Assert\NotBlank(message="Le nom est obligatoire")
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="integer")
      * @Groups({"user_read", "annonce_read"})
-     * @Assert\NotBlank(message="Le numéro est obligatoire")
      * @Assert\Type(type="numeric", message="Le numéro doit etre des chiffres !")
+     * @Assert\NotBlank(message="Le numéro est obligatoire")
      */
     private $number;
 
@@ -85,8 +85,8 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="text")
      * @Groups({"user_read", "annonce_read"})
+     * @Assert\Length(min="15", max="4000", minMessage="Les conditions pour le troc d'un ou plusieur livre(s) est obligatoire, elle doit faire au moins 15 caractéres", maxMessage="Les conditions pour le troc d'un ou plusieur livre(s) est obligatoire, elle doit faire au max 4000 caractéres")
      * @Assert\NotBlank(message="Les conditions pour le troc d'un ou plusieur livre(s) est obligatoire")
-     * @Assert\Length(min="15", minMessage="Les conditions pour le troc d'un ou plusieur livre(s) est obligatoire, elle doit faire au moins 3 caractéres")
      */
     private $exigences;
 

@@ -23,7 +23,7 @@ security:
             pattern: ^/api/users
             stateless: true
             anonymous: true
-            methods: [GET]
+            methods: [GET, POST]
         login:
             pattern:  ^/api/login
             stateless: true
